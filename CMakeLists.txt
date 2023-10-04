@@ -18,7 +18,10 @@ if(${BUILD_TESTS})
 
     find_package(GTest REQUIRED)
     enable_testing()
-    add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+    set(Tests
+        test/main.cpp
+    )
+    add_executable(${PROJECT_NAME} ${Tests} ${Sources} ${Headers})
 
     target_link_libraries(${PROJECT_NAME}
         GTest::gtest
@@ -30,7 +33,7 @@ else()
 
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
     add_library(${PROJECT_NAME} SHARED
-        ${SOURCES}
+        ${Sources}
     )
 
 
