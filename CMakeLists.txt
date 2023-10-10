@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(ini_reader)
+project(IniReader)
 set(CXX_STANDARD 20)
 
 
@@ -21,6 +21,7 @@ if(${BUILD_TESTS})
     set(Tests
         test/main.cpp
     )
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
     add_executable(${PROJECT_NAME} ${Tests} ${Sources} ${Headers})
 
     target_link_libraries(${PROJECT_NAME}
