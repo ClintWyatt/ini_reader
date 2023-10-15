@@ -21,6 +21,8 @@ if(${BUILD_TESTS})
     set(Tests
         test/main.cpp
     )
+
+
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
     add_executable(${PROJECT_NAME} ${Tests} ${Sources} ${Headers})
 
@@ -29,6 +31,9 @@ if(${BUILD_TESTS})
         GTest::gtest_main
     )
 
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/config $<TARGET_FILE_DIR:${PROJECT_NAME}>/config)
     
 else()
 

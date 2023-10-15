@@ -21,6 +21,13 @@ private:
      */
     bool read_ini_file(const std::string& ini_file);
 
+    /**
+     *@brief - method adds the ini data to the hash map
+     *@param key - key for the ini data
+     *@param data - ini data
+     *@return none
+     */
+    void add_ini_data(const std::string& key, const std::string& data);
 std::unordered_map<std::string, std::unordered_map<std::string, std::string>> ini_data_;
 
 
