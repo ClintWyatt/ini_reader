@@ -24,6 +24,8 @@ bool IniReader::read_ini_file(const std::string& ini_file)
             {
                 if (line[0] == '[' && line[line.length() - 1] == ']')
                 {
+                    line.erase(0, 1);
+                    line.erase(line.length() - 1, 1);
                     current_key = line;
                 }
                 else
@@ -45,7 +47,7 @@ void IniReader::add_ini_data(const std::string& key, const std::string& data)
 {
     std::regex pattern("[ ]*[=][ ]*");
     std::string pruned_data = std::regex_replace(data, pattern, "|");
-    std::cout << "replace string: " << pruned_data << std::endl;
+    //std::cout << "replace string: " << pruned_data << std::endl;
 
     std::string::size_type data_mark = pruned_data.find('|');
     if (std::string::npos == data_mark)
@@ -54,8 +56,25 @@ void IniReader::add_ini_data(const std::string& key, const std::string& data)
     {
         std::string data_key(pruned_data, 0, data_mark);
         std::string data_entry(pruned_data, data_mark + 1, pruned_data.length() - 1);
-        std::cout << data_key << " -> " << data_entry << std::endl;
-        ini_data_[key].insert(std::make_pair<std::string, std::string>(std::string(pruned_data, 0, data_mark), std::string(pruned_data, data_mark + 1, pruned_data.length() - 1)));
-
+        ini_data_[key][data_key] = data_entry;
     }
+}
+
+std::string IniReader::get_data(const std::string& key, const std::string& data_field)
+{
+
+    auto find_key = ini_data_.find(key);
+    if (find_key != ini_data_.end())
+    {
+        std::cout << "Found key " << key << std::endl;
+        if (find_key->second.find(data_field) != find_key->second.end())
+        {
+            std::cout << ini_data_[key][data_field] << std::endl;
+        }
+        else
+            std::cout << "entry " << data_field << " does not exist" << std::endl;
+    }
+    else
+        std::cout << "failed to find key "<< key << std::endl;
+    return "0";
 }

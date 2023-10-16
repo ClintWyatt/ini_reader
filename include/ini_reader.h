@@ -2,6 +2,7 @@
 #define H_INI_READER
 
 #include<string>
+#include<utility>
 #include<unordered_map>
 
 class IniReader
@@ -11,6 +12,12 @@ public:
 
     IniReader(const std::string& ini_file);
 
+    /**
+     *@brief - method prints the ini data
+     *@param key - key for the ini data
+     *@return none
+     */
+    std::string get_data(const std::string& key, const std::string& data_field);
 
 private:
 
@@ -28,7 +35,8 @@ private:
      *@return none
      */
     void add_ini_data(const std::string& key, const std::string& data);
-std::unordered_map<std::string, std::unordered_map<std::string, std::string>> ini_data_;
+
+std::unordered_map<std::string, std::unordered_map <std::string, std::string>> ini_data_;
 
 
 };
