@@ -34,6 +34,7 @@ bool IniReader::read_ini_file(const std::string& ini_file)
                 }
             }
         }
+        input_file.close();
     }
     else
     {
@@ -62,19 +63,19 @@ void IniReader::add_ini_data(const std::string& key, const std::string& data)
 
 std::string IniReader::get_data(const std::string& key, const std::string& data_field)
 {
-
+    //TODO - throw exception here if desired data is not found
     auto find_key = ini_data_.find(key);
+    std::string target_data;
     if (find_key != ini_data_.end())
     {
-        std::cout << "Found key " << key << std::endl;
         if (find_key->second.find(data_field) != find_key->second.end())
         {
-            std::cout << ini_data_[key][data_field] << std::endl;
+            target_data = ini_data_[key][data_field];
         }
         else
             std::cout << "entry " << data_field << " does not exist" << std::endl;
     }
     else
         std::cout << "failed to find key "<< key << std::endl;
-    return "0";
+    return target_data;
 }

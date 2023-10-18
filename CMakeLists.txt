@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(IniReader)
-set(CXX_STANDARD 20)
-
+set(CMAKE_CXX_STANDARD 20)
+#set(set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20"))
 
 set(Headers
     include/ini_reader.h
