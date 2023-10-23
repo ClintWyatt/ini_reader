@@ -57,7 +57,13 @@ void IniReader::add_ini_data(const std::string& key, const std::string& data)
     {
         std::string data_key(pruned_data, 0, data_mark);
         std::string data_entry(pruned_data, data_mark + 1, pruned_data.length() - 1);
-        ini_data_[key][data_key] = data_entry;
+        //see if we can find a string quotation
+        if (data_entry[0] == '\"' && data_entry[data_entry.length() - 1] == '\"')
+        {
+            ini_data_[key][data_key] = std::string(data_entry, 1, data_entry.length() - 2);
+        }
+        else
+            ini_data_[key][data_key] = data_entry;
     }
 }
 

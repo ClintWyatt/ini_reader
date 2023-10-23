@@ -6,11 +6,16 @@
 #include<unordered_map>
 #include<concepts>
 #include<type_traits>
+#include<string_view>
+#include<iostream>
 
 template<typename T>
-concept IniData = std::is_convertible_v<T, std::string_view> ||
-    std::integral<T> || std::floating_point<T> || 
+concept IniData = std::integral<T> || std::floating_point<T> || 
     std::convertible_to<T, bool>;
+
+template<typename T>
+concept IniString = std::same_as<T, std::string>; 
+
 class IniReader
 {
 
@@ -26,7 +31,7 @@ public:
     std::string get_data(const std::string& key, const std::string& data_field);
 
     template <typename T>
-    requires IniData<T>
+    requires IniData<T> 
     T get_ini_data(const std::string& key, const std::string& data_field)
     {
         T data_type;
@@ -46,6 +51,16 @@ public:
         {
             data_type = std::stod(data);
         }
+        return data_type;
+    }
+
+    template <typename T>
+    requires IniString<T>
+    T get_ini_data_str(const std::string& key, const std::string& data_field)
+    {
+        T data_type;
+        std::cout << get_data(key, data_field) << std::endl;
+        data_type = get_data(key, data_field);
         return data_type;
     }
 private:
